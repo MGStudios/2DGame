@@ -1,4 +1,4 @@
-package com.mgstudios.game;
+package com.mgstudios.game.core;
 
 import java.awt.EventQueue;
 
