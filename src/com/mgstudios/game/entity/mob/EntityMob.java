@@ -5,7 +5,7 @@ import com.mgstudios.game.graphics.sprites.Sprite;
 
 public abstract class EntityMob extends Entity {
 	protected Sprite sprite;
-	protected int dir = 0; // north, going clockwise
+	protected int dir = 2; // north, going clockwise
 	protected boolean moving = false;
 	
 	public void move(int xChange, int yChange) {
