@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import com.mgstudios.game.graphics.Screen;
+import com.mgstudios.game.input.InputHandler;
+import com.mgstudios.game.input.Keyboard;
 
 public class Game extends Canvas implements Runnable {
 	public static final long serialVersionUID = 1L;
@@ -31,9 +33,19 @@ public class Game extends Canvas implements Runnable {
 	
 	private Screen screen;
 	
+	private InputHandler input;
+	private Keyboard keyboard;
+	
+	public static int x = 0, y = 0;
+	
 	public Game() {
 		screen = new Screen(width, height);
 		frame = new JFrame();
+		
+		input = new InputHandler();
+		keyboard = new Keyboard();
+		
+		addKeyListener(input);
 		
 		Dimension size = new Dimension((width * scale), (height * scale));
 		setPreferredSize(size);
@@ -67,8 +79,9 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-	public void run() {		
+	public void run() {
 		manageAppearance();
+		requestFocus();
 		
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
@@ -99,9 +112,9 @@ public class Game extends Canvas implements Runnable {
 		}
 		stop();
 	}
-
+	
 	private void update() {
-
+		keyboard.update(input.key);
 	}
 
 	private void render() {
@@ -112,7 +125,7 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		screen.clear();
-		screen.render();
+		screen.render(x, y);
 		
 		for(int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
