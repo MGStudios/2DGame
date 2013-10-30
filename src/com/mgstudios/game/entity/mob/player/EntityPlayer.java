@@ -91,6 +91,6 @@ public class EntityPlayer extends EntityMob {
 				}
 			}
 		}
-		screen.renderPlayer(x, y, sprite, flip);
+		screen.renderPlayer(x - 16, y - 16, sprite, flip);
 	}
 }

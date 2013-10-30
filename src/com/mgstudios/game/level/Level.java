@@ -1,38 +1,37 @@
 package com.mgstudios.game.level;
 
+import java.awt.image.BufferedImage;
+
 import com.mgstudios.game.graphics.Screen;
 import com.mgstudios.game.level.tile.Tile;
 
 public class Level {
-	protected int width, height;
+	protected BufferedImage image;
 	protected int[] tiles;
+	protected int width, height;
+	protected int[] tilesInt;
 	
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
-		tiles = new int[width * height];
+		tilesInt = new int[width * height];
 		generateLevel();
 	}
 	
-	public Level(String path) {
-		loadLevel(path);
+	public Level(String fileName) {
+		loadLevel(fileName);
+		generateLevel();
+		width = image.getWidth();
+		height = image.getHeight();
 	}
 	
-	protected void generateLevel() {
-		
-	}
+	protected void generateLevel() {}
 	
-	private void loadLevel(String path) {
-		
-	}
+	protected void loadLevel(String fileName) {}
 	
-	public void update() {
-		
-	}
+	public void update() {}
 	
-	private void time() {
-		
-	}
+//	private void time() {}
 	
 	public void render(int xScroll, int yScroll, Screen screen) {
 		screen.setOffset(xScroll, yScroll);
@@ -51,9 +50,9 @@ public class Level {
 	
 	public Tile getTile(int x, int y) {
 		if(x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
-		if(tiles[x + y * width] == 0) return Tile.grass;
-		if(tiles[x + y * width] == 1) return Tile.flower;
-		if(tiles[x + y * width] == 2) return Tile.rocks;
+		if(tiles[x + y * width] == 0xff00FF00) return Tile.grass_6;
+		if(tiles[x + y * width] == 0xffFFFF00) return Tile.flower;
+		if(tiles[x + y * width] == 0xff7F7F00) return Tile.rocks;
 		return Tile.voidTile;
 	}
 }

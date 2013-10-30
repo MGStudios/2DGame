@@ -16,7 +16,7 @@ import com.mgstudios.game.graphics.Screen;
 import com.mgstudios.game.input.InputHandler;
 import com.mgstudios.game.input.Keyboard;
 import com.mgstudios.game.level.Level;
-import com.mgstudios.game.level.RandomLevel;
+import com.mgstudios.game.level.SpawnLevel;
 
 public class Game extends Canvas implements Runnable {
 	public static final long serialVersionUID = 1L;
@@ -49,11 +49,11 @@ public class Game extends Canvas implements Runnable {
 		
 		input = new InputHandler();
 		keyboard = new Keyboard();
-		player = new EntityPlayer(keyboard.controller);
+		player = new EntityPlayer(6 * 16, 4 * 16, keyboard.controller);
 		
 		addKeyListener(input);
 		
-		level = new RandomLevel(64, 64);
+		level = new SpawnLevel("level");
 		
 		Dimension size = new Dimension((width * scale), (height * scale));
 		setPreferredSize(size);
@@ -122,7 +122,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void update() {
-		keyboard.update(input.key, player);
+		keyboard.update(input.key);
 		player.update();
 	}
 
