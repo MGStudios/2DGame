@@ -1,19 +1,33 @@
 package com.mgstudios.game.input;
 
-import com.mgstudios.game.core.Game;
+import com.mgstudios.game.entity.mob.player.EntityPlayer;
 
 public class Controller {
-	public void update(boolean forward, boolean backward, boolean left, boolean right) {
-		if(forward)
-			Game.y--;
-
-		if(backward)
-			Game.y++;
-
-		if(left)
-			Game.x--;
+	public boolean up, down, left, right;
+	private EntityPlayer player;
+	
+	public void update(EntityPlayer player, boolean forward, boolean backward, boolean left, boolean right) {
+		up = forward;
+		down = backward;
+		this.left = left;
+		this.right = right;
 		
-		if(right)
-			Game.x++;
+		this.player = player;
+		
+		if(forward) {
+			
+		}
+
+		if(backward) {
+			
+		}
+
+		if(left) {
+			
+		}
+		
+		if(right) {
+			
+		}
 	}
 }

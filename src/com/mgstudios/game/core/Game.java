@@ -11,9 +11,12 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import com.mgstudios.game.entity.mob.player.EntityPlayer;
 import com.mgstudios.game.graphics.Screen;
 import com.mgstudios.game.input.InputHandler;
 import com.mgstudios.game.input.Keyboard;
+import com.mgstudios.game.level.Level;
+import com.mgstudios.game.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
 	public static final long serialVersionUID = 1L;
@@ -34,9 +37,11 @@ public class Game extends Canvas implements Runnable {
 	private Screen screen;
 	
 	private InputHandler input;
-	private Keyboard keyboard;
+	public Keyboard keyboard;
 	
-	public static int x = 0, y = 0;
+	private Level level;
+	
+	private EntityPlayer player;
 	
 	public Game() {
 		screen = new Screen(width, height);
@@ -44,8 +49,11 @@ public class Game extends Canvas implements Runnable {
 		
 		input = new InputHandler();
 		keyboard = new Keyboard();
+		player = new EntityPlayer(keyboard.controller);
 		
 		addKeyListener(input);
+		
+		level = new RandomLevel(64, 64);
 		
 		Dimension size = new Dimension((width * scale), (height * scale));
 		setPreferredSize(size);
@@ -114,7 +122,8 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void update() {
-		keyboard.update(input.key);
+		keyboard.update(input.key, player);
+		player.update();
 	}
 
 	private void render() {
@@ -125,7 +134,12 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		screen.clear();
-		screen.render(x, y);
+		
+		int xScroll = player.x - screen.width / 2;
+		int yScroll = player.y - screen.height / 2;
+		
+		level.render(xScroll, yScroll, screen);
+		player.render(screen);
 		
 		for(int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
