@@ -53,7 +53,7 @@ public class Game extends Canvas implements Runnable {
 		
 		addKeyListener(input);
 		
-		level = new SpawnLevel("level");
+		level = new SpawnLevel("generic");
 		
 		Dimension size = new Dimension((width * scale), (height * scale));
 		setPreferredSize(size);
